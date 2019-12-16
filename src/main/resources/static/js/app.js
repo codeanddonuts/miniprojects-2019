@@ -1,6 +1,6 @@
-import templates from "./templates.js";
+"use strict";
 
-window.App = (() => {
+const App = (() => {
   const BASE_URL = "http://" + window.location.host
 
   class Api {
@@ -39,6 +39,7 @@ window.App = (() => {
       const DAY = 24 * HOUR
       const WEEK = 7 * DAY
 
+      dateString = dateString + "Z"
       const date = new Date(dateString)
       const difference = (new Date()).getTime() - date.getTime()
       if (difference < 10 * MINUTE) {
@@ -564,7 +565,3 @@ window.App = (() => {
   const api = new Api()
   return new Controller(new ArticleService(api), new CommentService(api), new FriendService(), new SearchService(), new UserService(api), new ProfileService(api))
 })()
-const userId = window.location.pathname.replace("/users/", "")
-window.App.showNewsfeed()
-window.App.showFriends(userId)
-window.App.showArticles(userId)
